@@ -159,23 +159,33 @@ function isFriend(name, object) {
 // Function 13 - Non-Friends /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-function nonFriends(name, array) {
-    let notFriends = [];
-    for (let i = 0; i < array.length; i++) {
-        if (!name.friends.includes((array[i]))) {
-            notFriends.push(array[i])
+function nonFriends(name, people) {
+    let noAmigos = [];
+    for (let i = 0; i < people.length; i++) {
+      var friends = people[i].friends;
+      var isFriend = false;
+      if (people[i].name !== name) {
+        for (let j = 0; j < friends.length; j++) {
+          if (friends[j] === name) {
+            isFriend = true;
+          }
         }
+        if (!isFriend) {
+          noAmigos.push(people[i].name)
+        }
+      }
     }
-    return notFriends;
-}
+    return noAmigos
+  }
 
 //////////////////////////////////////////////////////////////////////
 // Function 14 - Update Object ///////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
 function updateObject(object, key, value) {
-
-}
+    object[key] = value;
+    return object;
+        }
 
 //////////////////////////////////////////////////////////////////////
 // Function 15 - Remove Properties ///////////////////////////////////
