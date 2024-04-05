@@ -2,16 +2,28 @@
 // Function 1 - Object Values ////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
+var objectOne = {a: "one", b: "two", ponies: "crayons", dingle: "dangle"};
+
 function objectValues(object) {
     // code
+    let newArray = []
+    for (var key in object) {
+        newArray.push(object[key]);
+    }
+  return newArray;
 } 
+
+console.log(objectValues(objectOne));
 
 //////////////////////////////////////////////////////////////////////
 // Function 2 - Keys to String ///////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
 function keysToString(object) {
-
+    let keyArray = Object.keys(object);
+  let keyString = keyArray.toString();
+  let keyStringy = keyString.replaceAll(",", " ")
+  return keyStringy;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -20,6 +32,13 @@ function keysToString(object) {
 
 function valuesToString(object) {
     
+       let stringValues = [];
+       for (let key in object) {
+        if (typeof object[key] === "string") {
+            stringValues.push(object[key])
+        }
+       }
+       return stringValues.join(" ");
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -28,6 +47,11 @@ function valuesToString(object) {
 
 function arrayOrObject(collection) {
     
+    if (Array.isArray(collection)) {
+        return "array";
+      } else  {
+        return "object"
+      }
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -35,7 +59,8 @@ function arrayOrObject(collection) {
 //////////////////////////////////////////////////////////////////////
 
 function capitalizeWord(string) {
-    
+    let capitalizedWord = string[0].toUpperCase() + string.slice(1);
+    return capitalizedWord;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -43,7 +68,11 @@ function capitalizeWord(string) {
 //////////////////////////////////////////////////////////////////////
 
 function capitalizeAllWords(string) {
-    
+    const words = string.split(" ");
+    for (let i = 0; i < words.length; i++) {
+        words[i] = words[i][0].toUpperCase() + words[i].slice(1)
+    }
+    return words.join(" ");
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -51,6 +80,9 @@ function capitalizeAllWords(string) {
 //////////////////////////////////////////////////////////////////////
 
 function welcomeMessage(object) {
+
+    let capitalizedName = capitalizeWord(object.name);
+  return "Welcome " + capitalizedName + "!"
 
 }
 
@@ -60,6 +92,10 @@ function welcomeMessage(object) {
 
 function profileInfo(object) {
 
+    let capitalizedName = capitalizeWord(object.name);
+    let capitalizedSpecies = capitalizeWord(object.species);
+    return capitalizedName + " is a " + capitalizedSpecies;
+
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -68,6 +104,11 @@ function profileInfo(object) {
 
 function maybeNoises(object) {
 
+    if (!object.hasOwnProperty("noises") || !object.noises.length > 0) {
+        return "there are no noises";
+      } else if (object.hasOwnProperty("noises")) {
+        return object.noises.join(" ");
+      }
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -76,13 +117,27 @@ function maybeNoises(object) {
 
 function hasWord(string, word) {
 
+    if (string.includes(word)) {
+        return true;
+      } else {
+        return false;
+      }
+
 }
 
 //////////////////////////////////////////////////////////////////////
 // Function 11 - Add Friend //////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
+ /* global addFriend */
+ QUnit.test("addFriend() : Should take a name and an object and add the name to the object's friends array then return the object", function(assert){
+    assert.deepEqual(addFriend("lester", {friends:[]}), {friends:["lester"]});
+    assert.deepEqual(addFriend("jimmy", {friends:["bobby","jones"]}), {friends:["bobby", "jones", "jimmy"]});
+  });
 
 function addFriend (name, object) {
+
+    object.friends.push(name);
+    return object;
 
 }
 
@@ -92,6 +147,12 @@ function addFriend (name, object) {
 
 function isFriend(name, object) {
 
+    if (object.hasOwnProperty("friends") && object.friends.includes(name)) {
+        return true;
+    } else {
+        return false;
+    }
+
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -99,7 +160,13 @@ function isFriend(name, object) {
 //////////////////////////////////////////////////////////////////////
 
 function nonFriends(name, array) {
-
+    let notFriends = [];
+    for (let i = 0; i < array.length; i++) {
+        if (!name.friends.includes((array[i]))) {
+            notFriends.push(array[i])
+        }
+    }
+    return notFriends;
 }
 
 //////////////////////////////////////////////////////////////////////
